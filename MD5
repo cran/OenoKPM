@@ -1,0 +1,11 @@
+aa5cf6750f6f305088a748af56dfdadc *DESCRIPTION
+a3b96491f7fb84b3d7978cd01f43413b *NAMESPACE
+6aa40d81a82b2946cc9afeb52cbd127c *R/Coeff.R
+6b9eeb5c5e33369cc83bb723eafb4618 *R/kp.R
+ab01e6bbc0ae437ca415f11016085f3b *R/metrics.R
+2eac2378567b2e2fdb47cdd46a19996b *R/plot_fit.R
+4eca42c860a09df5e9b8a354163153bc *build/partial.rdb
+e173a3058f1b878a23c0ba1e809f528c *man/coeff.Rd
+8356667377e36d69006c980e85e41a1c *man/kp.Rd
+259b95a99201d87f0f5a404c35301cd6 *man/metrics.Rd
+03c1c352a4c627f2f3f84a0538baf757 *man/plot_fit.Rd
