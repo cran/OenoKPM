@@ -2,62 +2,72 @@
 % Please edit documentation in R/Coeff.R
 \name{coeff}
 \alias{coeff}
-\title{Performs the modeling of the observed
+\title{Performs the modeling of the observed 
 data and returns the coefficients}
 \usage{
-coeff(data, model)
+coeff(data, model, startA, startB, startC, startD, startG)
 }
 \arguments{
 \item{data}{Data frame to be analyzed. The data frame must be in the following order:
 \itemize{
-\item \strong{First}: All columns containing the independent
+\item **First**: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item \strong{Second}: All columns containing dependent variables
-(e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}
-production})
-\item \strong{Header}: Columns must contain a
-header. If the treatment \strong{ID} is in
-the header, this \strong{ID} will be used
-to \strong{identify} the coefficients for each
+\item **Second**: All columns containing dependent variables
+ (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ production})
+\item **Header**: Columns must contain a 
+header. If the treatment **ID** is in 
+the header, this **ID** will be used 
+to **identify** the coefficients for each 
 analyzed curve.}}
 
 \item{model}{Model to be adjusted. Argument for model:
 \itemize{
-\item \strong{Model = 1}. 5PL Model (five-parameter logistic (5PL) model)
-\item \strong{Model = 2}. Gompertz Model
-\item \strong{Model = 3}. 4PL Model (four-parameter logistic (4PL) model)
+\item **Model = 1**. 5PL Model (five-parameter logistic (5PL) model)
+\item **Model = 2**. Gompertz Model
+\item **Model = 3**. 4PL Model (four-parameter logistic (4PL) model)
 }}
+
+\item{startA}{Starting estimate of the value of A for 5PL model.}
+
+\item{startB}{Starting estimate of the value of B for 5PL model.}
+
+\item{startC}{Starting estimate of the value of C for 5PL model.}
+
+\item{startD}{Starting estimate of the value of D for 5PL model.}
+
+\item{startG}{Starting estimate of the value of G for 5PL model.}
 }
 \value{
-The coefficients of the analyzed model
+The coefficients of the analyzed model 
 are returned in a data.frame.
 
-According to the model adopted,
+According to the model adopted, 
 the following coefficients are presented:
 
-5PL: \strong{a}, \strong{b}, \strong{c}, \strong{d} and \strong{g}
+5PL: **a**, **b**, **c**, **d** and **g**
 
-Gompertz: \strong{a}, \strong{b} and \strong{c}
+Gompertz: **a**, **b** and **c**
 
-4PL: \strong{a}, \strong{b}, \strong{c} and \strong{d}
+4PL: **a**, **b**, **c** and **d**
 }
 \description{
-A function that, based on the
-observed data, the independent variable
+A function that, based on the 
+observed data, the independent variable 
 (e.g. time in h) and the dependent
-variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
-performs the modeling of the fermentation
-curve based on the chosen model (\strong{5PL}, \strong{Gompertz}, or \strong{4PL}).
-
-As a result, the curve-fitted coefficients of
-the chosen equation (model) are returned
-in the form of data frame.
+ variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+  performs the modeling of the fermentation 
+  curve based on the chosen model (**5PL**, **Gompertz**, or **4PL**). 
+  
+  As a result, the curve-fitted coefficients of 
+  the chosen equation (model) are returned 
+  in the form of data frame.
 }
 \details{
-Curve fitting from the observed data is
-performed by the nlsLM() function in
+Curve fitting from the observed data is 
+performed by the nlsLM() function in 
 the 'minpack.lm' package.
 }
 \examples{
@@ -92,9 +102,29 @@ df <- data.frame('Time_Yeast_A' = seq(0,280, by=6.23),
 
 #Using the coeff() function to return the fitted model coefficients
 
-coeff(data = df,model = 1) #5PL Model adopted
-coeff(data = df,model = 2) #Gompertz Model adopted
-coeff(data = df,model = 3) #4PL Model adopted
+coeff(data = df,
+model = 1,
+startA = 0,
+startB = 1.5,
+startC = 500,
+startD = 92, 
+startG = 1500) #5PL Model adopted
+
+coeff(data = df,
+model = 2, 
+startA = 92,
+startB = 1.5,
+startC = 0,
+startD = NA, 
+startG = NA) #Gompertz Model adopted
+
+coeff(data = df,
+model = 3, 
+startA = 0,
+startB = 2.5,
+startC = 10,
+startD = 92, 
+startG = NA) #4PL Model adopted
 
 
 }

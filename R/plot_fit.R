@@ -52,7 +52,11 @@
 #'\item **Models = 5**. 5PL and 4PL Models.
 #'\item **Models = 6**. Gompertz and 4PL Models.
 #'\item **Models = 7**. 5PL, Gompertz and 4PL Models.}
-#' 
+#' @param startA Starting estimate of the value of A for 5PL model.
+#' @param startB Starting estimate of the value of B for 5PL model.
+#' @param startC Starting estimate of the value of C for 5PL model.
+#' @param startD Starting estimate of the value of D for 5PL model.
+#' @param startG Starting estimate of the value of G for 5PL model.
 #' @param col Plot color of observed data in points. For example, "black".
 #' 
 #' @param col1 Plot color of predicted data from **model 1** (\emph{5PL Model}). For example, "red".
@@ -183,37 +187,26 @@
 #' #fit (models = 1)
 #' 
 #' plot_fit(data = df,
-#'          models = 1)
+#'          models = 1,
+#'          startA = 0,
+#'          startB = 1.5,
+#'          startC = 500,
+#'          startD = 92, 
+#'          startG = 1500)
 #'          
 #' 
 #' #Graph plotted with 5PL and Gompertz 
 #' #model fits (models = 4)
 #' 
 #' plot_fit(data = df,
-#'          models = 4)
+#'          models = 4,
+#'          startA = 0,
+#'          startB = 1.5,
+#'          startC = 500,
+#'          startD = 92, 
+#'          startG = 1500)
 #'          
-#' #Graph plotted with 5PL, Gompertz and 4PL 
-#' #model fits (models = 7)
 #' 
-#' plot_fit(data = df,
-#'          models = 7)
-#'          
-#' #Saving graphics to PDF files.In this example, 
-#' #we will use saving a temporary file in 
-#' #the temporary file directories.
-#' 
-#' \dontrun{plot_fit(data = df,
-#'          models = 1, #5PL Model
-#'          save.PDF = TRUE, #Save Graph in PDF
-#'          dir.save = tempdir(), #Directory path
-#'          dir.name = "Graphics 5PL Model Example 1")}  #Folder name (directory name)     
-#'          
-#
-#' \dontrun{plot_fit(data = df,
-#'          models = 7, #5PL, Gompertz and 4PL Models
-#'          save.PDF = TRUE, #Save Graph in PDF
-#'          dir.save = tempdir(), #Directory path
-#'          dir.name = "Graphics 5PL, Gompertz and 4PL Models Example 1")} #Folder name (directory name)
 #' 
 #' #################Example 2#################
 #' #Using the various function arguments to
@@ -252,7 +245,12 @@
 #' #fit (models = 1)
 #' #Do not show R^2
 #' 
-#' plot_fit(data = df, 
+#' plot_fit(data = df,
+#'          startA = 0,
+#'          startB = 1.5,
+#'          startC = 500,
+#'          startD = 92, 
+#'          startG = 1500, 
 #'          models = 1, 
 #'          col = "red", #Color of observed data (points)
 #'          col1 = "blue", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
@@ -268,33 +266,19 @@
 #'          show.R2 = FALSE) #Do not show R^2
 #'        
 #' 
-#' #Graph plotted with 5PL and Gompertz 
-#' #models fits (models = 4)
-#' #Do not show R^2
 #' 
-#' plot_fit(data = df, 
-#'          models = 4, 
-#'          col = "#000000", #Color of observed data (points)
-#'          col1 = "#FF0000", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
-#'          col2 = "#0000FF",#Predicted data color from model 2 (line). Model = 2 <- Gompertz Model
-#'          axisX =  "Time (h)", #Title X-Axis
-#'          axisY = "Carbon dioxide production (g/L)", #Title Y-Axis
-#'          breaksX = seq(0,200,20), #X-Axis scale (positions). 0,20,40,60,80,...
-#'          limitsX = c(0,200), #X-Axis Limits
-#'          breaksY = seq(0,90,10),#Y-Axis scale (positions). 0,10,20,30,40,...
-#'          limitsY = c(0,95), #Y-Axis Limits
-#'          font = "serif",
-#'          font.size = 14,
-#'          legend.position = "bottom",
-#'          show.R2 = FALSE) #Do not show R^2
-#'          
 #' 
 #' #Graph plotted with 5PL and 4PL 
 #' #model fits (models = 5)
 #' #Show R^2
-#' 
+#' \dontrun{
 #' plot_fit(data = df, 
 #'          models = 5, 
+#'          startA = 0,
+#'          startB = 1.5,
+#'          startC = 500,
+#'          startD = 92, 
+#'          startG = 1500,
 #'          col = "#000000", #Color of observed data (points)
 #'          col1 = "#FF0000", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
 #'          col3 = "#0B6121",#Predicted data color from model 3 (line). Model = 3 <- 4PL Model
@@ -308,14 +292,19 @@
 #'          font.size = 14,
 #'          legend.position = "bottom",
 #'          show.R2 = TRUE) #Show R^2
-#'          
+#'  }        
 #' 
 #' #Graph plotted with 5PL, Gompertz and 4PL 
 #' #model fits (models = 7)
 #' #Do not show R^2
-#' 
+#' \dontrun{
 #' plot_fit(data = df, 
-#'          models = 7, 
+#'          models = 7,
+#'          startA = 0,
+#'          startB = 1.5,
+#'          startC = 500,
+#'          startD = 92, 
+#'          startG = 1500, 
 #'          col = "#FF0000", #Color of observed data (points)
 #'          col1 = "#FF00FF", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
 #'          col2 = "#0101DF",#Predicted data color from model 2 (line). Model = 2 <- Gompertz Model
@@ -330,39 +319,19 @@
 #'          font.size = 14,
 #'          legend.position = "top",
 #'          show.R2 = FALSE) #Do not show R^2
-#'          
-#' #Saving graphics to PDF files.In this example, 
-#' #we will use saving a temporary file in 
-#' #the temporary file directories.
-#' 
-#' \dontrun{plot_fit(data = df, 
-#'          models = 1, 
-#'          col = "red", #Color of observed data (points)
-#'          col1 = "blue", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
-#'          axisX =  "Fermentation time (h)", #Title X-Axis
-#'          axisY = "Carbon dioxide production (g/L)", #Title Y-Axis
-#'          breaksX = seq(0,200,20), #X-Axis scale (positions). 0,20,40,60,80,...
-#'          limitsX = c(0,200), #X-Axis Limits
-#'          breaksY = seq(0,90,5),#Y-Axis scale (positions). 0,5,10,15,20,...
-#'          limitsY = c(0,95), #Y-Axis Limits
-#'          font = "serif",
-#'          font.size = 12,
-#'          legend.position = "right",
-#'          show.R2 = FALSE, #Do not show R^2  
-#'          save.PDF = TRUE, #Save Graph in PDF
-#'          dir.save = tempdir(), #Directory path
-#'          dir.name = "Graphics 5PL Model Example 2", #Folder Name (Directory Name)
-#'          width.PDF = 12,
-#'          height.PDF = 8)}
+#'  }        
 #' 
 #' @import ggplot2
 #' @import grDevices
 #' @import minpack.lm
-#' @import ggtext
-#' @import extrafont
 #' @export
 plot_fit <- function(data, 
                       models,
+                     startA,
+                     startB,
+                     startC,
+                     startD,
+                     startG,
                       col = "black",
                       col1 = "red",
                       col2 = "cornflowerblue",
@@ -385,8 +354,8 @@ plot_fit <- function(data,
 ) {
   graph_5PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
-                                   data = data, start = list(a = min(var_dep), b = 1.5, c=500,d=max(var_dep), g = 1500),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_5PL <-stats::cor(var_dep,stats::predict(model_5PL)) * stats::cor(var_dep,stats::predict(model_5PL))
     predicted_5PL <- stats::predict(model_5PL)
     models <- c("5PL Model" = col1)
@@ -473,7 +442,7 @@ plot_fit <- function(data,
   
   graph_5PLgompertz <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
-                                   data = data, start = list(a = min(var_dep), b = 1.5, c=500,d=max(var_dep), g = 1500),
+                                   data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
                                    control = minpack.lm::nls.lm.control(maxiter = 200))
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
@@ -515,8 +484,8 @@ plot_fit <- function(data,
   
   graph_5PL4PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
-                                   data = data, start = list(a = min(var_dep), b = 1.5, c=500,d=max(var_dep), g = 1500),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
                                    data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
                                    control = minpack.lm::nls.lm.control(maxiter = 200))
@@ -598,8 +567,8 @@ plot_fit <- function(data,
   
   graph_5PLGompertz4PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
-                                   data = data, start = list(a = min(var_dep), b = 1.5, c=500,d=max(var_dep), g = 1500),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
                                         start = list(a = max(var_dep), c = min(var_dep), b= 1.5),

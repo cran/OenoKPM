@@ -2,71 +2,92 @@
 % Please edit documentation in R/metrics.R
 \name{metrics}
 \alias{metrics}
-\title{Performs the modeling of the observed
-data and returns the fit metrics of the
+\title{Performs the modeling of the observed 
+data and returns the fit metrics of the 
 studied model}
 \usage{
-metrics(data, model, save.xls = FALSE, dir.save, xls.name)
+metrics(
+  data,
+  model,
+  save.xls = FALSE,
+  dir.save,
+  xls.name,
+  startA,
+  startB,
+  startC,
+  startD,
+  startG
+)
 }
 \arguments{
 \item{data}{Data frame to be analyzed. The data frame must be in the following order:
 \itemize{
-\item \strong{First}: All columns containing the independent
+\item **First**: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item \strong{Second}: All columns containing dependent variables
-(e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}
-production})
-\item \strong{Header}: Columns must contain a
-header. If the treatment \strong{ID} is in
-the header, this \strong{ID} will be used
-to \strong{identify} the metrics for each
+\item **Second**: All columns containing dependent variables
+ (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ production})
+\item **Header**: Columns must contain a 
+header. If the treatment **ID** is in 
+the header, this **ID** will be used 
+to **identify** the metrics for each 
 analyzed curve.}}
 
 \item{model}{Model to be adjusted. Argument for model:
 \itemize{
-\item \strong{Model = 1}. 5PL Model (five-parameter logistic (5PL) model)
-\item \strong{Model = 2}. Gompertz Model
-\item \strong{Model = 3}. 4PL Model (four-parameter logistic (4PL) model)
+\item **Model = 1**. 5PL Model (five-parameter logistic (5PL) model)
+\item **Model = 2**. Gompertz Model
+\item **Model = 3**. 4PL Model (four-parameter logistic (4PL) model)
 }}
 
-\item{save.xls}{If TRUE, an xlsx file containing
-the metrics will be saved in the working directory. If FALSE,
+\item{save.xls}{If TRUE, an xlsx file containing 
+the metrics will be saved in the working directory. If FALSE, 
 the xlsx file will not be saved.}
 
-\item{dir.save}{Directory path where
+\item{dir.save}{Directory path where 
 the xlsx file is to be saved.}
 
-\item{xls.name}{File name. Must contain the
+\item{xls.name}{File name. Must contain the 
 format. For example, "Metrics.xlsx".}
+
+\item{startA}{Starting estimate of the value of A for 5PL model.}
+
+\item{startB}{Starting estimate of the value of B for 5PL model.}
+
+\item{startC}{Starting estimate of the value of C for 5PL model.}
+
+\item{startD}{Starting estimate of the value of D for 5PL model.}
+
+\item{startG}{Starting estimate of the value of G for 5PL model.}
 }
 \value{
-The \strong{metrics} from the analyzed model
-are returned in a \strong{data.frame}. In addition,
-a \strong{"Metrics.xlsx" file} can be generated,
-containing the \strong{model fit metrics} for each fermentation
-curve studied: \strong{Correlation};
-\strong{R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}};
-\strong{Residual standard error};
-\strong{Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})}.
+The **metrics** from the analyzed model 
+are returned in a **data.frame**. In addition, 
+a **"Metrics.xlsx" file** can be generated, 
+containing the **model fit metrics** for each fermentation 
+curve studied: **Correlation**; 
+**R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}**;
+**Residual standard error**;
+**Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})**.
 }
 \description{
-A function that, based on the
-observed data, the independent variable
+A function that, based on the 
+observed data, the independent variable 
 (e.g. time in h) and the dependent
-variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
-performs the modeling of the fermentation
-curve based on the chosen model (\strong{5PL}, \strong{Gompertz}, or \strong{4PL})
-and returns the model fit \strong{metrics}.
-
-As a result, the fit metrics for the
-chosen model are returned in the form of
-data.frame: \strong{Correlation}, \strong{R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}},\strong{Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})} and \strong{Residual standard error}.
+ variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+  performs the modeling of the fermentation 
+  curve based on the chosen model (**5PL**, **Gompertz**, or **4PL**)
+  and returns the model fit **metrics**. 
+ 
+ As a result, the fit metrics for the 
+ chosen model are returned in the form of 
+ data.frame: **Correlation**, **R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}**,**Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})** and **Residual standard error**.
 }
 \details{
-Curve fitting from the observed data is
-performed by the nlsLM() function in
+Curve fitting from the observed data is 
+performed by the nlsLM() function in 
 the 'minpack.lm' package.
 }
 \examples{
@@ -102,31 +123,38 @@ df <- data.frame('Time_Yeast_A' = seq(0,280, by=6.23),
 #Using the metrics() function to find the 
 #model fit metrics
 
-metrics(data = df,model = 1, save.xls = FALSE) #5PL Model adopted
-metrics(data = df,model = 2, save.xls = FALSE) #Gompertz Model adopted
-metrics(data = df,model = 3, save.xls = FALSE) #4PL Model adopted 
+metrics(data = df,
+model = 1, 
+startA = 0,
+startB = 1.5,
+startC = 500,
+startD = 92, 
+startG = 1500,
+save.xls = FALSE) #5PL Model adopted
+
+metrics(data = df,
+model = 2,
+startA = 92,
+startB = 1.5,
+startC = 0,
+startD = NA, 
+startG = NA, 
+save.xls = FALSE) #Gompertz Model adopted
+
+metrics(data = df,
+model = 3,
+startA = 0,
+startB = 2.5,
+startC = 10,
+startD = 92, 
+startG = NA, 
+save.xls = FALSE) #4PL Model adopted 
 
 #Saving an xlsx file. In this example, 
 #we will use saving a temporary file in 
 #the temporary file directories.
 
-\dontrun{metrics(data = df,
-        model = 1, #5PL Model
-        save.xls = TRUE,
-        dir.save = tempdir(),
-        xls.name = "Metrics 5PL Model.xlsx")}
    
-\dontrun{metrics(data = df,
-        model = 2, #Gompertz Model
-        save.xls = TRUE,
-        dir.save = tempdir(),
-        xls.name = "Metrics Gompertz Model.xlsx")}
-        
-\dontrun{metrics(data = df,
-        model = 3, #4PL Model
-        save.xls = TRUE,
-        dir.save = tempdir(),
-        xls.name = "Metrics 4PL Model.xlsx")}
 
 }
 \author{

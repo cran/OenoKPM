@@ -1,7 +1,7 @@
 Package: OenoKPM
 Title: Modeling the Kinetics of CO2 Production in Alcoholic
         Fermentation
-Version: 0.1.2
+Version: 2.1.1
 Authors@R: 
     person(given = "Angelo",
            family = "Gava",
@@ -12,11 +12,11 @@ Description: Developed to help researchers who need to model the kinetics of car
 Depends: R (>= 4.0.0)
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.1.1
-Imports: ggplot2,minpack.lm,openxlsx,grDevices,ggtext,extrafont
+RoxygenNote: 7.2.1
+Imports: ggplot2,minpack.lm,openxlsx,grDevices
 NeedsCompilation: no
-Packaged: 2021-06-23 10:14:30 UTC; a-gav
+Packaged: 2022-11-11 12:19:31 UTC; a-gav
 Author: Angelo Gava [aut, cre] (<https://orcid.org/0000-0003-0338-6511>)
 Maintainer: Angelo Gava <gava.angelogava@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-06-24 07:40:16 UTC
+Date/Publication: 2022-11-11 12:40:02 UTC

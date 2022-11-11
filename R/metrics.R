@@ -41,6 +41,11 @@
 #' the xlsx file is to be saved.
 #' @param xls.name File name. Must contain the 
 #' format. For example, "Metrics.xlsx".
+#' @param startA Starting estimate of the value of A for 5PL model.
+#' @param startB Starting estimate of the value of B for 5PL model.
+#' @param startC Starting estimate of the value of C for 5PL model.
+#' @param startD Starting estimate of the value of D for 5PL model.
+#' @param startG Starting estimate of the value of G for 5PL model.
 #' @details 
 #' Curve fitting from the observed data is 
 #' performed by the nlsLM() function in 
@@ -89,31 +94,38 @@
 #' #Using the metrics() function to find the 
 #' #model fit metrics
 #' 
-#' metrics(data = df,model = 1, save.xls = FALSE) #5PL Model adopted
-#' metrics(data = df,model = 2, save.xls = FALSE) #Gompertz Model adopted
-#' metrics(data = df,model = 3, save.xls = FALSE) #4PL Model adopted 
+#' metrics(data = df,
+#' model = 1, 
+#' startA = 0,
+#' startB = 1.5,
+#' startC = 500,
+#' startD = 92, 
+#' startG = 1500,
+#' save.xls = FALSE) #5PL Model adopted
+#' 
+#' metrics(data = df,
+#' model = 2,
+#' startA = 92,
+#' startB = 1.5,
+#' startC = 0,
+#' startD = NA, 
+#' startG = NA, 
+#' save.xls = FALSE) #Gompertz Model adopted
+#' 
+#' metrics(data = df,
+#' model = 3,
+#' startA = 0,
+#' startB = 2.5,
+#' startC = 10,
+#' startD = 92, 
+#' startG = NA, 
+#' save.xls = FALSE) #4PL Model adopted 
 #' 
 #' #Saving an xlsx file. In this example, 
 #' #we will use saving a temporary file in 
 #' #the temporary file directories.
 #' 
-#' \dontrun{metrics(data = df,
-#'         model = 1, #5PL Model
-#'         save.xls = TRUE,
-#'         dir.save = tempdir(),
-#'         xls.name = "Metrics 5PL Model.xlsx")}
 #'    
-#' \dontrun{metrics(data = df,
-#'         model = 2, #Gompertz Model
-#'         save.xls = TRUE,
-#'         dir.save = tempdir(),
-#'         xls.name = "Metrics Gompertz Model.xlsx")}
-#'         
-#' \dontrun{metrics(data = df,
-#'         model = 3, #4PL Model
-#'         save.xls = TRUE,
-#'         dir.save = tempdir(),
-#'         xls.name = "Metrics 4PL Model.xlsx")}
 #' 
 #' @import minpack.lm
 #' @import openxlsx
@@ -123,21 +135,26 @@ metrics <- function(data,
                     model,
                     save.xls = FALSE,
                     dir.save,
-                    xls.name) {
+                    xls.name,
+                    startA,
+                    startB,
+                    startC,
+                    startD,
+                    startG) {
   fit_5PL <- function(data, var_dep, var_indep){
     minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
-                      data = data, start = list(a = min(var_dep), b = 1.5, c=500,d=max(var_dep), g = 1500),
-                      control = minpack.lm::nls.lm.control(maxiter = 200))
+                      data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
+                      control = minpack.lm::nls.lm.control(maxiter = 500))
   }
   fit_gompertz <- function(data, var_dep, var_indep) {
     minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                       data = data,
-                      start = list(a = max(var_dep), b= 1.5,c = min(var_dep)),
+                      start = list(a = startA, b= startB,c = startC),
                       control = minpack.lm::nls.lm.control(maxiter = 200))
   }
   fit_4PL <- function(data, var_dep, var_indep){
     minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
-                      data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
+                      data = data, start = list(a = startA, b = startB, c=startC,d=startD),
                       control = minpack.lm::nls.lm.control(maxiter = 200))
   }
   if (model == 1){

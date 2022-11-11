@@ -2,18 +2,25 @@
 % Please edit documentation in R/plot_fit.R
 \name{plot_fit}
 \alias{plot_fit}
-\title{Plot graphs with observed data
+\title{Plot graphs with observed data 
 and predicted data from models}
 \usage{
 plot_fit(
   data,
   models,
+  startA,
+  startB,
+  startC,
+  startD,
+  startG,
   col = "black",
   col1 = "red",
   col2 = "cornflowerblue",
   col3 = "forestgreen",
   axisX = "Time (hours)",
-  axisY = expression(paste("CO"["2"] * " Production (g L"^{     "-1" } * ")")),
+  axisY = expression(paste("CO"["2"] * " Production (g L"^{
+     "-1"
+ } * ")")),
   breaksX = seq(0, 196, 24),
   limitsX = c(0, 196),
   breaksY = seq(0, 100, 10),
@@ -30,40 +37,50 @@ plot_fit(
 )
 }
 \arguments{
-\item{data}{Data frame to be analyzed.
-The data frame must be in the
+\item{data}{Data frame to be analyzed. 
+The data frame must be in the 
 following order:
 \itemize{
-\item \strong{First}: All columns containing the independent
+\item **First**: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item \strong{Second}: All columns containing dependent variables
-(e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}
-production})
-\item \strong{Header}: Columns must contain a
-header. If the treatment \strong{ID} is in
-the header, this \strong{ID} will
-be used to name the graphics
-PDF files for each
+\item **Second**: All columns containing dependent variables
+ (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ production})
+\item **Header**: Columns must contain a 
+header. If the treatment **ID** is in 
+the header, this **ID** will 
+be used to name the graphics 
+PDF files for each 
 analyzed curve.}}
 
 \item{models}{Model or models to be adjusted:
 \itemize{
-\item \strong{Models = 1}. Only the 5PL Model.
-\item \strong{Models = 2}. Only the Gompertz Model.
-\item \strong{Models = 3}. Only the 4PL Model.
-\item \strong{Models = 4}. 5PL and Gompertz Models.
-\item \strong{Models = 5}. 5PL and 4PL Models.
-\item \strong{Models = 6}. Gompertz and 4PL Models.
-\item \strong{Models = 7}. 5PL, Gompertz and 4PL Models.}}
+\item **Models = 1**. Only the 5PL Model.
+\item **Models = 2**. Only the Gompertz Model.
+\item **Models = 3**. Only the 4PL Model.
+\item **Models = 4**. 5PL and Gompertz Models.
+\item **Models = 5**. 5PL and 4PL Models.
+\item **Models = 6**. Gompertz and 4PL Models.
+\item **Models = 7**. 5PL, Gompertz and 4PL Models.}}
+
+\item{startA}{Starting estimate of the value of A for 5PL model.}
+
+\item{startB}{Starting estimate of the value of B for 5PL model.}
+
+\item{startC}{Starting estimate of the value of C for 5PL model.}
+
+\item{startD}{Starting estimate of the value of D for 5PL model.}
+
+\item{startG}{Starting estimate of the value of G for 5PL model.}
 
 \item{col}{Plot color of observed data in points. For example, "black".}
 
-\item{col1}{Plot color of predicted data from \strong{model 1} (\emph{5PL Model}). For example, "red".}
+\item{col1}{Plot color of predicted data from **model 1** (\emph{5PL Model}). For example, "red".}
 
-\item{col2}{Plot color of predicted data from \strong{model 2} (\emph{Gompertz Model}). For example, "blue".}
+\item{col2}{Plot color of predicted data from **model 2** (\emph{Gompertz Model}). For example, "blue".}
 
-\item{col3}{Plot color of predicted data from \strong{model 3} (\emph{4PL Model}). For example, "green".}
+\item{col3}{Plot color of predicted data from **model 3** (\emph{4PL Model}). For example, "green".}
 
 \item{axisX}{X Axis Title. Character vector (or expression).}
 
@@ -99,16 +116,16 @@ analyzed curve.}}
 \item{show.R2}{If TRUE, plots the R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}} of the plotted predicted models on the graph. If FALSE, do not plot the R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}} of the plotted predicted models.}
 
 \item{save.PDF}{If TRUE, create a folder (directory)
-and save each graphic in PDF format. If FALSE,
-it does not create a directory or save the
+and save each graphic in PDF format. If FALSE, 
+it does not create a directory or save the 
 graphics in PDF.}
 
-\item{dir.save}{Path of the directory in
+\item{dir.save}{Path of the directory in 
 which a new folder (directory) will be
-created for saving graphics in PDF format.}
+ created for saving graphics in PDF format.}
 
 \item{dir.name}{Folder name (directory name)
-to be created within the working directory
+to be created within the working directory 
 for saving PDF graphics. Character vector.}
 
 \item{width.PDF}{Width, in cm, of the graphic to be saved in a PDF file.}
@@ -116,52 +133,52 @@ for saving PDF graphics. Character vector.}
 \item{height.PDF}{Height, in cm, of the graphic to be saved in a PDF file.}
 }
 \value{
-Elegant graphics plotted according
-to observed and predicted data. In addition,
-a folder (directory) can be created,
+Elegant graphics plotted according 
+to observed and predicted data. In addition, 
+a folder (directory) can be created, 
 in which the PDF graphics will be saved,
-if desired.
-In this folder,
-the graph of each analyzed
+ if desired.
+In this folder, 
+the graph of each analyzed 
 fermentation curve is saved in PDF format,
-with the dimensions stipulated
-in the \emph{width.PDF} and \emph{height.PDF}
-arguments. The name of each PDF
-file will be extracted from the
-header of the dependent variable used
-for the graph.See more in the examples.
+ with the dimensions stipulated 
+ in the \emph{width.PDF} and \emph{height.PDF}
+  arguments. The name of each PDF 
+  file will be extracted from the 
+  header of the dependent variable used 
+  for the graph.See more in the examples.
 }
 \description{
-A function that, based on the
-observed data, the independent variable
+A function that, based on the 
+observed data, the independent variable 
 (e.g. time in h) and the dependent
-variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}}
-production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
-performs the modeling of the fermentation
-curve based on the chosen model(s) (\strong{5PL}, \strong{Gompertz}, or/and \strong{4PL}).
-
-From the observed data and predicted data,
-whether from one or all of the available
-models, this function will plot a graph
-for each fermentation curve evaluated.
-The chart will have the following basic
+ variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+  performs the modeling of the fermentation 
+  curve based on the chosen model(s) (**5PL**, **Gompertz**, or/and **4PL**). 
+  
+From the observed data and predicted data, 
+whether from one or all of the available 
+models, this function will plot a graph 
+for each fermentation curve evaluated. 
+The chart will have the following basic 
 structure:
 
-\strong{X axis}: \emph{fermentation time}
+**X axis**: \emph{fermentation time}
 
-\strong{Y axis}: \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production}
+**Y axis**: \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production}
 
-\strong{Observed data}: \emph{Scatterplot with dots}. Plot with geom_point function from ggplot2 package.
+**Observed data**: \emph{Scatterplot with dots}. Plot with geom_point function from ggplot2 package.
 
-\strong{Predicted data}: \emph{Smoothed line}. Plot with the stat_smooth function from the ggplot2 package.
+**Predicted data**: \emph{Smoothed line}. Plot with the stat_smooth function from the ggplot2 package.
 }
 \details{
-Curve fitting from the observed data is
-performed by the nlsLM() function in
+Curve fitting from the observed data is 
+performed by the nlsLM() function in 
 the 'minpack.lm' package.
 
-Graphs are
-plotted using the various functions in
+Graphs are 
+plotted using the various functions in 
 the 'ggplot2' package.
 }
 \examples{
@@ -207,36 +224,26 @@ df <- data.frame('Time_Yeast_A' = seq(0,280, by=6.23),
 #fit (models = 1)
 
 plot_fit(data = df,
-         models = 1)
+         models = 1,
+         startA = 0,
+         startB = 1.5,
+         startC = 500,
+         startD = 92, 
+         startG = 1500)
          
 
 #Graph plotted with 5PL and Gompertz 
 #model fits (models = 4)
 
 plot_fit(data = df,
-         models = 4)
+         models = 4,
+         startA = 0,
+         startB = 1.5,
+         startC = 500,
+         startD = 92, 
+         startG = 1500)
          
-#Graph plotted with 5PL, Gompertz and 4PL 
-#model fits (models = 7)
 
-plot_fit(data = df,
-         models = 7)
-         
-#Saving graphics to PDF files.In this example, 
-#we will use saving a temporary file in 
-#the temporary file directories.
-
-\dontrun{plot_fit(data = df,
-         models = 1, #5PL Model
-         save.PDF = TRUE, #Save Graph in PDF
-         dir.save = tempdir(), #Directory path
-         dir.name = "Graphics 5PL Model Example 1")}  #Folder name (directory name)     
-         
-\dontrun{plot_fit(data = df,
-         models = 7, #5PL, Gompertz and 4PL Models
-         save.PDF = TRUE, #Save Graph in PDF
-         dir.save = tempdir(), #Directory path
-         dir.name = "Graphics 5PL, Gompertz and 4PL Models Example 1")} #Folder name (directory name)
 
 #################Example 2#################
 #Using the various function arguments to
@@ -275,7 +282,12 @@ df <- data.frame('Time_Treatment_A' = seq(0,200, by=6.45),
 #fit (models = 1)
 #Do not show R^2
 
-plot_fit(data = df, 
+plot_fit(data = df,
+         startA = 0,
+         startB = 1.5,
+         startC = 500,
+         startD = 92, 
+         startG = 1500, 
          models = 1, 
          col = "red", #Color of observed data (points)
          col1 = "blue", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
@@ -291,33 +303,19 @@ plot_fit(data = df,
          show.R2 = FALSE) #Do not show R^2
        
 
-#Graph plotted with 5PL and Gompertz 
-#models fits (models = 4)
-#Do not show R^2
 
-plot_fit(data = df, 
-         models = 4, 
-         col = "#000000", #Color of observed data (points)
-         col1 = "#FF0000", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
-         col2 = "#0000FF",#Predicted data color from model 2 (line). Model = 2 <- Gompertz Model
-         axisX =  "Time (h)", #Title X-Axis
-         axisY = "Carbon dioxide production (g/L)", #Title Y-Axis
-         breaksX = seq(0,200,20), #X-Axis scale (positions). 0,20,40,60,80,...
-         limitsX = c(0,200), #X-Axis Limits
-         breaksY = seq(0,90,10),#Y-Axis scale (positions). 0,10,20,30,40,...
-         limitsY = c(0,95), #Y-Axis Limits
-         font = "serif",
-         font.size = 14,
-         legend.position = "bottom",
-         show.R2 = FALSE) #Do not show R^2
-         
 
 #Graph plotted with 5PL and 4PL 
 #model fits (models = 5)
 #Show R^2
-
+\dontrun{
 plot_fit(data = df, 
          models = 5, 
+         startA = 0,
+         startB = 1.5,
+         startC = 500,
+         startD = 92, 
+         startG = 1500,
          col = "#000000", #Color of observed data (points)
          col1 = "#FF0000", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
          col3 = "#0B6121",#Predicted data color from model 3 (line). Model = 3 <- 4PL Model
@@ -331,14 +329,19 @@ plot_fit(data = df,
          font.size = 14,
          legend.position = "bottom",
          show.R2 = TRUE) #Show R^2
-         
+ }        
 
 #Graph plotted with 5PL, Gompertz and 4PL 
 #model fits (models = 7)
 #Do not show R^2
-
+\dontrun{
 plot_fit(data = df, 
-         models = 7, 
+         models = 7,
+         startA = 0,
+         startB = 1.5,
+         startC = 500,
+         startD = 92, 
+         startG = 1500, 
          col = "#FF0000", #Color of observed data (points)
          col1 = "#FF00FF", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
          col2 = "#0101DF",#Predicted data color from model 2 (line). Model = 2 <- Gompertz Model
@@ -353,30 +356,7 @@ plot_fit(data = df,
          font.size = 14,
          legend.position = "top",
          show.R2 = FALSE) #Do not show R^2
-         
-#Saving graphics to PDF files.In this example, 
-#we will use saving a temporary file in 
-#the temporary file directories.
-
-\dontrun{plot_fit(data = df, 
-         models = 1, 
-         col = "red", #Color of observed data (points)
-         col1 = "blue", #Predicted data color from model 1 (line). Model = 1 <- 5PL Model
-         axisX =  "Fermentation time (h)", #Title X-Axis
-         axisY = "Carbon dioxide production (g/L)", #Title Y-Axis
-         breaksX = seq(0,200,20), #X-Axis scale (positions). 0,20,40,60,80,...
-         limitsX = c(0,200), #X-Axis Limits
-         breaksY = seq(0,90,5),#Y-Axis scale (positions). 0,5,10,15,20,...
-         limitsY = c(0,95), #Y-Axis Limits
-         font = "serif",
-         font.size = 12,
-         legend.position = "right",
-         show.R2 = FALSE, #Do not show R^2  
-         save.PDF = TRUE, #Save Graph in PDF
-         dir.save = tempdir(), #Directory path
-         dir.name = "Graphics 5PL Model Example 2", #Folder Name (Directory Name)
-         width.PDF = 12,
-         height.PDF = 8)}
+ }        
 
 }
 \author{
