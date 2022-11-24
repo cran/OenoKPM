@@ -41,46 +41,46 @@ plot_fit(
 The data frame must be in the 
 following order:
 \itemize{
-\item **First**: All columns containing the independent 
+\item \strong{First}: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item **Second**: All columns containing dependent variables
+\item \strong{Second}: All columns containing dependent variables
  (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}} 
  production})
-\item **Header**: Columns must contain a 
-header. If the treatment **ID** is in 
-the header, this **ID** will 
+\item \strong{Header}: Columns must contain a 
+header. If the treatment \strong{ID} is in 
+the header, this \strong{ID} will 
 be used to name the graphics 
 PDF files for each 
 analyzed curve.}}
 
 \item{models}{Model or models to be adjusted:
 \itemize{
-\item **Models = 1**. Only the 5PL Model.
-\item **Models = 2**. Only the Gompertz Model.
-\item **Models = 3**. Only the 4PL Model.
-\item **Models = 4**. 5PL and Gompertz Models.
-\item **Models = 5**. 5PL and 4PL Models.
-\item **Models = 6**. Gompertz and 4PL Models.
-\item **Models = 7**. 5PL, Gompertz and 4PL Models.}}
+\item \strong{Models = 1}. Only the 5PL Model.
+\item \strong{Models = 2}. Only the Gompertz Model.
+\item \strong{Models = 3}. Only the 4PL Model.
+\item \strong{Models = 4}. 5PL and Gompertz Models.
+\item \strong{Models = 5}. 5PL and 4PL Models.
+\item \strong{Models = 6}. Gompertz and 4PL Models.
+\item \strong{Models = 7}. 5PL, Gompertz and 4PL Models.}}
 
-\item{startA}{Starting estimate of the value of A for 5PL model.}
+\item{startA}{Starting estimate of the value of A for model.}
 
-\item{startB}{Starting estimate of the value of B for 5PL model.}
+\item{startB}{Starting estimate of the value of B for model.}
 
-\item{startC}{Starting estimate of the value of C for 5PL model.}
+\item{startC}{Starting estimate of the value of C for model.}
 
-\item{startD}{Starting estimate of the value of D for 5PL model.}
+\item{startD}{Starting estimate of the value of D for model.}
 
-\item{startG}{Starting estimate of the value of G for 5PL model.}
+\item{startG}{Starting estimate of the value of G for model.}
 
 \item{col}{Plot color of observed data in points. For example, "black".}
 
-\item{col1}{Plot color of predicted data from **model 1** (\emph{5PL Model}). For example, "red".}
+\item{col1}{Plot color of predicted data from \strong{model 1} (\emph{5PL Model}). For example, "red".}
 
-\item{col2}{Plot color of predicted data from **model 2** (\emph{Gompertz Model}). For example, "blue".}
+\item{col2}{Plot color of predicted data from \strong{model 2} (\emph{Gompertz Model}). For example, "blue".}
 
-\item{col3}{Plot color of predicted data from **model 3** (\emph{4PL Model}). For example, "green".}
+\item{col3}{Plot color of predicted data from \strong{model 3} (\emph{4PL Model}). For example, "green".}
 
 \item{axisX}{X Axis Title. Character vector (or expression).}
 
@@ -146,16 +146,16 @@ fermentation curve is saved in PDF format,
   arguments. The name of each PDF 
   file will be extracted from the 
   header of the dependent variable used 
-  for the graph.See more in the examples.
+  for the graph. See more in the examples.
 }
 \description{
 A function that, based on the 
 observed data, the independent variable 
 (e.g. time in h) and the dependent
  variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}}),
   performs the modeling of the fermentation 
-  curve based on the chosen model(s) (**5PL**, **Gompertz**, or/and **4PL**). 
+  curve based on the chosen model(s) (\strong{5PL}, \strong{Gompertz}, or/and \strong{4PL}). 
   
 From the observed data and predicted data, 
 whether from one or all of the available 
@@ -164,13 +164,13 @@ for each fermentation curve evaluated.
 The chart will have the following basic 
 structure:
 
-**X axis**: \emph{fermentation time}
+\strong{X axis}: \emph{fermentation time}
 
-**Y axis**: \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production}
+\strong{Y axis}: \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production}
 
-**Observed data**: \emph{Scatterplot with dots}. Plot with geom_point function from ggplot2 package.
+\strong{Observed data}: \emph{Scatterplot with dots}. Plot with geom_point function from ggplot2 package.
 
-**Predicted data**: \emph{Smoothed line}. Plot with the stat_smooth function from the ggplot2 package.
+\strong{Predicted data}: \emph{Smoothed line}. Plot with the stat_smooth function from the ggplot2 package.
 }
 \details{
 Curve fitting from the observed data is 

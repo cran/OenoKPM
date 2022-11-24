@@ -10,34 +10,34 @@ coeff(data, model, startA, startB, startC, startD, startG)
 \arguments{
 \item{data}{Data frame to be analyzed. The data frame must be in the following order:
 \itemize{
-\item **First**: All columns containing the independent 
+\item \strong{First}: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item **Second**: All columns containing dependent variables
+\item \strong{Second}: All columns containing dependent variables
  (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}}
  production})
-\item **Header**: Columns must contain a 
-header. If the treatment **ID** is in 
-the header, this **ID** will be used 
-to **identify** the coefficients for each 
+\item \strong{Header}: Columns must contain a 
+header. If the treatment \strong{ID} is in 
+the header, this \strong{ID} will be used 
+to \strong{identify} the coefficients for each 
 analyzed curve.}}
 
 \item{model}{Model to be adjusted. Argument for model:
 \itemize{
-\item **Model = 1**. 5PL Model (five-parameter logistic (5PL) model)
-\item **Model = 2**. Gompertz Model
-\item **Model = 3**. 4PL Model (four-parameter logistic (4PL) model)
+\item \strong{Model = 1}. 5PL Model (five-parameter logistic (5PL) model)
+\item \strong{Model = 2}. Gompertz Model
+\item \strong{Model = 3}. 4PL Model (four-parameter logistic (4PL) model)
 }}
 
-\item{startA}{Starting estimate of the value of A for 5PL model.}
+\item{startA}{Starting estimate of the value of A for model.}
 
-\item{startB}{Starting estimate of the value of B for 5PL model.}
+\item{startB}{Starting estimate of the value of B for model.}
 
-\item{startC}{Starting estimate of the value of C for 5PL model.}
+\item{startC}{Starting estimate of the value of C for model.}
 
-\item{startD}{Starting estimate of the value of D for 5PL model.}
+\item{startD}{Starting estimate of the value of D for model.}
 
-\item{startG}{Starting estimate of the value of G for 5PL model.}
+\item{startG}{Starting estimate of the value of G for model.}
 }
 \value{
 The coefficients of the analyzed model 
@@ -46,20 +46,20 @@ are returned in a data.frame.
 According to the model adopted, 
 the following coefficients are presented:
 
-5PL: **a**, **b**, **c**, **d** and **g**
+5PL: \strong{a}, \strong{b}, \strong{c}, \strong{d} and \strong{g}.
 
-Gompertz: **a**, **b** and **c**
+Gompertz: \strong{a}, \strong{b}, and \strong{c}.
 
-4PL: **a**, **b**, **c** and **d**
+4PL: \strong{a}, \strong{b}, \strong{c} and \strong{d}.
 }
 \description{
 A function that, based on the 
 observed data, the independent variable 
 (e.g. time in h) and the dependent
  variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}}),
   performs the modeling of the fermentation 
-  curve based on the chosen model (**5PL**, **Gompertz**, or **4PL**). 
+  curve based on the chosen model (\strong{5PL}, \strong{Gompertz}, or \strong{4PL}). 
   
   As a result, the curve-fitted coefficients of 
   the chosen equation (model) are returned 

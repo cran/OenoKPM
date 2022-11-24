@@ -3,7 +3,7 @@
 \name{kp}
 \alias{kp}
 \title{Calculates kinetic parameters as a 
-function of model fit for CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production 
+function of model fit for \ifelse{html}{\out{CO<sub>2</sub>}}{\eqn{CO2}} production 
 as a function of time}
 \usage{
 kp(
@@ -24,24 +24,24 @@ kp(
 The data frame must be in the 
 following order:
 \itemize{
-\item **First**: All columns containing the independent 
+\item \strong{First}: All columns containing the independent 
 variable (e.g. \emph{time in hours})
-\item **Second**: All columns containing dependent variables
+\item \strong{Second}: All columns containing dependent variables
  (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+ g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}} 
  production})
-\item **Header**: Columns must contain a 
-header. If the treatment **ID** is in 
-the header, this **ID** will be used 
-to **identify** the coefficients 
+\item \strong{Header}: Columns must contain a 
+header. If the treatment \strong{ID} is in 
+the header, this \strong{ID} will be used 
+to \strong{identify} the coefficients 
 and kinetic parameters for each 
 analyzed curve.}}
 
 \item{model}{Model to be adjusted. Argument for model:
 \itemize{
-\item **Model = 1**. 5PL Model (five-parameter logistic (5PL) model)
-\item **Model = 2**. Gompertz Model
-\item **Model = 3**. 4PL Model (four-parameter logistic (4PL) model)
+\item \strong{Model = 1}. 5PL Model (five-parameter logistic (5PL) model).
+\item \strong{Model = 2}. Gompertz Model.
+\item \strong{Model = 3}. 4PL Model (four-parameter logistic (4PL) model).
 }}
 
 \item{save.xls}{If TRUE, an xlsx file containing 
@@ -55,21 +55,21 @@ the xlsx file is to be saved.}
 \item{xls.name}{File name. Must contain the 
 format. For example, "Parameters.xlsx".}
 
-\item{startA}{Starting estimate of the value of A for 5PL model.}
+\item{startA}{Starting estimate of the value of A for model.}
 
-\item{startB}{Starting estimate of the value of B for 5PL model.}
+\item{startB}{Starting estimate of the value of B for model.}
 
-\item{startC}{Starting estimate of the value of C for 5PL model.}
+\item{startC}{Starting estimate of the value of C for model.}
 
-\item{startD}{Starting estimate of the value of D for 5PL model.}
+\item{startD}{Starting estimate of the value of D for model.}
 
-\item{startG}{Starting estimate of the value of G for 5PL model.}
+\item{startG}{Starting estimate of the value of G for model.}
 }
 \value{
-The analyzed model **coefficients** 
-and the calculated **kinetic parameters** 
+The analyzed model \strong{coefficients} 
+and the calculated \strong{kinetic parameters} 
 are returned in a data.frame. In addition, 
-a **"Parameters.xlsx" file** can be generated, 
+a \strong{"Parameters.xlsx" file} can be generated, 
 containing the coefficients and kinetic 
 parameters of each studied fermentation curve.
 }
@@ -78,23 +78,23 @@ A function that, based on the
 observed data, the independent variable 
 (e.g. time in h) and the dependent
  variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
- production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+ production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}}),
   performs the modeling of the fermentation 
-  curve based on the chosen model (**5PL**, **Gompertz**, or **4PL**). 
+  curve based on the chosen model (\strong{5PL}, \strong{Gompertz}, or \strong{4PL}). 
 
   Next, the coefficients are used in 
   mathematical formulas to obtain the 
   following kinetic parameters:
   
-**t\ifelse{html}{\out{<sub>Lag</sub>}}{\eqn{_LAg}}** - Duration of the latency phase for CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production;
+\strong{t\ifelse{html}{\out{<sub>Lag</sub>}}{\eqn{_{Lag}}}} - Duration of the latency phase for CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} production;
 
-**V\ifelse{html}{\out{<sub>max</sub>}}{\eqn{_max}}** - Maximum rate of production of CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}};
+\strong{V\ifelse{html}{\out{<sub>max</sub>}}{\eqn{_{max}}}} - Maximum rate of production of CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}};
 
-**t\ifelse{html}{\out{<sub>Vmax</sub>}}{\eqn{_Vmax}}** - Moment in which maximum fermentation rate occurs;
+\strong{t\ifelse{html}{\out{<sub>Vmax</sub>}}{\eqn{_{V_{max}}}}} - Moment in which maximum fermentation rate occurs;
 
-**CO\ifelse{html}{\out{<sub>2Vmax</sub>}}{\eqn{_2Vmax}}** - CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} Produced until Maximum fermentation rate occurs;
+\strong{CO\ifelse{html}{\out{<sub>2Vmax</sub>}}{\eqn{_{2_{Vmax}}}}} - CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} Produced until Maximum fermentation rate occurs;
 
-**Y\ifelse{html}{\out{<sub>max</sub>}}{\eqn{_max}}** - Maximum production of carbon dioxide (CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}});
+\strong{Y\ifelse{html}{\out{<sub>max</sub>}}{\eqn{_{max}}}} - Maximum production of carbon dioxide (CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}});
 }
 \details{
 Curve fitting from the observed data is 

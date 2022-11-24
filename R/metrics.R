@@ -6,33 +6,33 @@
 #' observed data, the independent variable 
 #' (e.g. time in h) and the dependent
 #'  variable (e.g. CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
-#'  production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}}),
+#'  production in g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}}),
 #'   performs the modeling of the fermentation 
-#'   curve based on the chosen model (**5PL**, **Gompertz**, or **4PL**)
-#'   and returns the model fit **metrics**. 
+#'   curve based on the chosen model (\strong{5PL}, \strong{Gompertz}, or \strong{4PL})
+#'   and returns the model fit \strong{metrics}. 
 #'  
 #'  As a result, the fit metrics for the 
 #'  chosen model are returned in the form of 
-#'  data.frame: **Correlation**, **R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}**,**Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})** and **Residual standard error**.
+#'  data.frame: \strong{Correlation}, \strong{R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}},\strong{Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_{min}}})} and \strong{Residual standard error}.
 #' 
 #' @param data Data frame to be analyzed. The data frame must be in the following order:
 #' \itemize{
-#' \item **First**: All columns containing the independent 
+#' \item \strong{First}: All columns containing the independent 
 #' variable (e.g. \emph{time in hours})
-#' \item **Second**: All columns containing dependent variables
+#' \item \strong{Second}: All columns containing dependent variables
 #'  (e.g. \emph{CO\ifelse{html}{\out{<sub>2</sub>}}{\eqn{_2}} 
-#'  g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^-1}} 
+#'  g L\ifelse{html}{\out{<sup>-1</sup>}}{\eqn{^{-1}}} 
 #'  production})
-#' \item **Header**: Columns must contain a 
-#' header. If the treatment **ID** is in 
-#' the header, this **ID** will be used 
-#' to **identify** the metrics for each 
+#' \item \strong{Header}: Columns must contain a 
+#' header. If the treatment \strong{ID} is in 
+#' the header, this \strong{ID} will be used 
+#' to \strong{identify} the metrics for each 
 #' analyzed curve.} 
 #' @param model Model to be adjusted. Argument for model:
 #' \itemize{
-#' \item **Model = 1**. 5PL Model (five-parameter logistic (5PL) model)
-#' \item **Model = 2**. Gompertz Model
-#' \item **Model = 3**. 4PL Model (four-parameter logistic (4PL) model)
+#' \item \strong{Model = 1}. 5PL Model (five-parameter logistic (5PL) model)
+#' \item \strong{Model = 2}. Gompertz Model
+#' \item \strong{Model = 3}. 4PL Model (four-parameter logistic (4PL) model)
 #' } 
 #' @param save.xls If TRUE, an xlsx file containing 
 #' the metrics will be saved in the working directory. If FALSE, 
@@ -41,24 +41,24 @@
 #' the xlsx file is to be saved.
 #' @param xls.name File name. Must contain the 
 #' format. For example, "Metrics.xlsx".
-#' @param startA Starting estimate of the value of A for 5PL model.
-#' @param startB Starting estimate of the value of B for 5PL model.
-#' @param startC Starting estimate of the value of C for 5PL model.
-#' @param startD Starting estimate of the value of D for 5PL model.
-#' @param startG Starting estimate of the value of G for 5PL model.
+#' @param startA Starting estimate of the value of A for model.
+#' @param startB Starting estimate of the value of B for model.
+#' @param startC Starting estimate of the value of C for model.
+#' @param startD Starting estimate of the value of D for model.
+#' @param startG Starting estimate of the value of G for model.
 #' @details 
 #' Curve fitting from the observed data is 
 #' performed by the nlsLM() function in 
 #' the 'minpack.lm' package.
 #'     
-#' @return The **metrics** from the analyzed model 
-#' are returned in a **data.frame**. In addition, 
-#' a **"Metrics.xlsx" file** can be generated, 
-#' containing the **model fit metrics** for each fermentation 
-#' curve studied: **Correlation**; 
-#' **R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}**;
-#' **Residual standard error**;
-#' **Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_min}})**.
+#' @return The \strong{metrics} from the analyzed model 
+#' are returned in a \strong{data.frame}. In addition, 
+#' a \strong{"Metrics.xlsx" file} can be generated, 
+#' containing the \strong{model fit metrics} for each fermentation 
+#' curve studied: \strong{Correlation}; 
+#' \strong{R\ifelse{html}{\out{<sup>2</sup>}}{\eqn{^2}}};
+#' \strong{Residual standard error};
+#' \strong{Residual sum of squares (RSS\ifelse{html}{\out{<sub>min</sub>}}{\eqn{_{min}}})}.
 #' 
 #' @author Angelo Gava
 #' @examples
