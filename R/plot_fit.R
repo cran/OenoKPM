@@ -384,8 +384,8 @@ plot_fit <- function(data,
   graph_gompertz <- function(data, var_dep, var_indep, treatment_name){
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
-                                        start = list(a = max(var_dep), c = min(var_dep), b= 1.5),
-                                        control = minpack.lm::nls.lm.control(maxiter = 200))
+                                        start = list(a = startA, c = startC, b= startC),
+                                        control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))
     predicted_gompertz <- stats::predict(model_gompertz)
     models <- c("Gompertz Model" = col2)
@@ -413,8 +413,8 @@ plot_fit <- function(data,
   
   graph_4PL <- function(data, var_dep, var_indep, treatment_name){
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
-                                   data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   data = data, start = list(a = startA, b = startB, c=startC,d=startD),
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
     predicted_4PL <- stats::predict(model_4PL)
     models <- c("4PL Model" = col3)
@@ -443,11 +443,11 @@ plot_fit <- function(data,
   graph_5PLgompertz <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
                                    data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
                                         start = list(a = max(var_dep), c = min(var_dep), b= 1.5),
-                                        control = minpack.lm::nls.lm.control(maxiter = 200))
+                                        control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_5PL <-stats::cor(var_dep,stats::predict(model_5PL)) * stats::cor(var_dep,stats::predict(model_5PL))
     predicted_5PL <- stats::predict(model_5PL)
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))
@@ -487,8 +487,8 @@ plot_fit <- function(data,
                                    data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
                                    control = minpack.lm::nls.lm.control(maxiter = 500))
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
-                                   data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   data = data, start = list(list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep))),
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_5PL <-stats::cor(var_dep,stats::predict(model_5PL)) * stats::cor(var_dep,stats::predict(model_5PL))
     predicted_5PL <- stats::predict(model_5PL)
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
@@ -527,10 +527,10 @@ plot_fit <- function(data,
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
                                         start = list(a = max(var_dep), c = min(var_dep), b= 1.5),
-                                        control = minpack.lm::nls.lm.control(maxiter = 200))
+                                        control = minpack.lm::nls.lm.control(maxiter = 500))
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
                                    data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))
     predicted_gompertz <- stats::predict(model_gompertz)
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
@@ -571,11 +571,11 @@ plot_fit <- function(data,
                                    control = minpack.lm::nls.lm.control(maxiter = 500))
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                                         data = data,
-                                        start = list(a = max(var_dep), c = min(var_dep), b= 1.5),
-                                        control = minpack.lm::nls.lm.control(maxiter = 200))
+                                        start = list(max(var_dep), c = min(var_dep), b= 1.5),
+                                        control = minpack.lm::nls.lm.control(maxiter = 500))
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
                                    data = data, start = list(a = min(var_dep), b = 2.5, c=10,d=max(var_dep)),
-                                   control = minpack.lm::nls.lm.control(maxiter = 200))
+                                   control = minpack.lm::nls.lm.control(maxiter = 500))
     r2_5PL <-stats::cor(var_dep,stats::predict(model_5PL)) * stats::cor(var_dep,stats::predict(model_5PL))
     predicted_5PL <- stats::predict(model_5PL)
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))

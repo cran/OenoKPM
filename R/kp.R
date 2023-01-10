@@ -174,18 +174,18 @@ kp <- function(data,
   fit_5PL <- function(data, var_dep, var_indep){
     minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
                       data = data, start = list(a = startA, b = startB, c=startC,d=startD, g = startG),
-                      control = minpack.lm::nls.lm.control(maxiter = 200))
+                      control = minpack.lm::nls.lm.control(maxiter = 500))
   }
   fit_gompertz <- function(data, var_dep, var_indep) {
     minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
                       data = data,
                       start = list(a = startA, b= startB,c = startC),
-                      control = minpack.lm::nls.lm.control(maxiter = 200))
+                      control = minpack.lm::nls.lm.control(maxiter = 500))
   }
   fit_4PL <- function(data, var_dep, var_indep){
     minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
                       data = data, start = list(a = startA, b = startB, c=startC,d=startD),
-                      control = minpack.lm::nls.lm.control(maxiter = 200))
+                      control = minpack.lm::nls.lm.control(maxiter = 500))
   }
   if(model == 1){
     Coeff_5PL <- data.frame(a = rep(NA, ncol(data)/2),b = rep(NA, ncol(data)/2),c = rep(NA, ncol(data)/2),d = rep(NA, ncol(data)/2), g = rep(NA, ncol(data)/2)) 
