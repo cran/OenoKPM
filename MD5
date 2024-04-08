@@ -1,11 +1,11 @@
-c714e19c33630f607fbe68e8754a485f *DESCRIPTION
-11cf6f178f65cf8488d1536635a30cbd *NAMESPACE
+0fc3b583e5085163c72cee2add63935f *DESCRIPTION
+08544b5fc440d3f5c7d4d7e7b07dd2e7 *NAMESPACE
 70c26a831c264626799e72ace5e3d852 *R/kp.R
 bd7769d1721f5e0d2b9cfc00831e2123 *R/metrics.R
-ecba4b836a96ba8f4755be3487af3189 *R/plot_fit.R
+596473ddb99dd313c7c1b758b941b75e *R/plot_fit.R
 94b00f0911fbf14d539f32b89da92826 *R/pred.R
 b943a1546a1e17be4eea235ec7b4616b *build/partial.rdb
 6b1d239df28c1724dcb99204fc57889d *man/kp.Rd
 de7f92de8df791e6d124ee9aeddd9d06 *man/metrics.Rd
-8ed008ee43f2fa4aa7bb0d4655db3798 *man/plot_fit.Rd
+765ab5a2e0a733264833203fab0daac4 *man/plot_fit.Rd
 16a6070b8b52eb78df95aa74c1dc53a6 *man/pred.Rd

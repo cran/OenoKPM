@@ -116,7 +116,12 @@
 #'
 #' @param width.PDF Width, in cm, of the graphic to be saved in a PDF file.
 #' 
-#' @param height.PDF Height, in cm, of the graphic to be saved in a PDF file.
+#' @param height.PDF Height, in cm, of the graphic to be saved in a PDF 
+#' 
+#' @param width.PDF2 Width, in cm, of the multiplot graphic to be saved in a PDF file.
+#' 
+#' @param height.PDF2 Height, in cm, of the multiplot graphic to be saved in a PDF
+#' 
 #'@details 
 #'Curve fitting from the observed data is 
 #' performed by the nlsLM() function in 
@@ -323,7 +328,10 @@
 #' 
 #' @import ggplot2
 #' @import grDevices
+#' @import gridExtra
 #' @import minpack.lm
+#' @import ggpubr
+#' @import grid
 #' @export
 plot_fit <- function(data, 
                       models,
@@ -338,10 +346,10 @@ plot_fit <- function(data,
                       col3 = "forestgreen",
                       axisX =  "Time (hours)",
                       axisY = expression(paste("CO"["2"]*" Production (g L"^{"-1"}*")")),
-                      breaksX = seq(0,196,24),
-                      limitsX = c(0,196),
-                      breaksY = seq(0,100,10),
-                      limitsY = c(0,100),
+                      breaksX = waiver(),
+                      limitsX = NULL,
+                      breaksY = waiver(),
+                      limitsY = NULL,
                       font = "serif",
                       font.size = 14,
                       legend.position = "top",
@@ -350,7 +358,9 @@ plot_fit <- function(data,
                       dir.save,
                       dir.name = "Graphics",
                       width.PDF = 15,
-                      height.PDF = 12
+                      height.PDF = 12,
+                      width.PDF2 = 25,
+                      height.PDF2 = 18
 ) {
   graph_5PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
@@ -359,6 +369,7 @@ plot_fit <- function(data,
     r2_5PL <-stats::cor(var_dep,stats::predict(model_5PL)) * stats::cor(var_dep,stats::predict(model_5PL))
     predicted_5PL <- stats::predict(model_5PL)
     models <- c("5PL Model" = col1)
+    data$overall <- treatment_name
     graph_5PL <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg = col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_5PL, color = "5PL Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -368,6 +379,7 @@ plot_fit <- function(data,
       ggplot2::scale_color_manual(values = models)+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
       ggplot2::scale_y_continuous(breaks = breaksY, limits = limitsY)+
       ggplot2::theme(text=ggplot2::element_text(size = font.size))
@@ -378,6 +390,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))   
     ggplot2::ggsave(graph_5PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(graph_5PL)
       }
   
   graph_gompertz <- function(data, var_dep, var_indep, treatment_name){
@@ -388,6 +401,7 @@ plot_fit <- function(data,
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))
     predicted_gompertz <- stats::predict(model_gompertz)
     models <- c("Gompertz Model" = col2)
+    data$overall <- treatment_name
     graph_gompertz <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg = col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_gompertz, color="Gompertz Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -397,6 +411,7 @@ plot_fit <- function(data,
       ggplot2::scale_color_manual(values = models)+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
       ggplot2::scale_y_continuous(breaks = breaksY, limits = limitsY)+
       ggplot2::theme(text=ggplot2::element_text(size = font.size))
@@ -407,6 +422,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_gompertz, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(graph_gompertz)
     }
   
   graph_4PL <- function(data, var_dep, var_indep, treatment_name){
@@ -416,6 +432,7 @@ plot_fit <- function(data,
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
     predicted_4PL <- stats::predict(model_4PL)
     models <- c("4PL Model" = col3)
+    data$overall <- treatment_name
     graph_4PL <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg=col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_4PL, color = "4PL Model"), se=FALSE, linetype = "longdash")+
@@ -425,6 +442,7 @@ plot_fit <- function(data,
       ggplot2::scale_color_manual(values = models)+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
       ggplot2::scale_y_continuous(breaks = breaksY, limits = limitsY)+
       ggplot2::theme(text=ggplot2::element_text(size = font.size))
@@ -435,6 +453,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(graph_4PL)
       }
   
   graph_5PLgompertz <- function(data, var_dep, var_indep, treatment_name){
@@ -450,6 +469,7 @@ plot_fit <- function(data,
     r2_gompertz <-stats::cor(var_dep,stats::predict(model_gompertz)) * stats::cor(var_dep,stats::predict(model_gompertz))
     predicted_gompertz <- stats::predict(model_gompertz)
     models <- c("5PL Model" = col1, "Gompertz Model" = col2)
+    data$overall <- treatment_name
     graph_5PLgompertz <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg=col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_gompertz, color="Gompertz Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -458,6 +478,7 @@ plot_fit <- function(data,
       ggplot2::theme(legend.position = legend.position, legend.title = ggplot2::element_blank())+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::labs(color = "Legend")+
       ggplot2::scale_color_manual(values = models)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX)+
@@ -476,6 +497,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PLgompertz, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(graph_5PLgompertz)
       }
   
   graph_5PL4PL <- function(data, var_dep, var_indep, treatment_name){
@@ -490,6 +512,7 @@ plot_fit <- function(data,
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
     predicted_4PL <- stats::predict(model_4PL)
     models <- c("5PL Model" = col1, "4PL Model" = col3)
+    data$overall <- treatment_name
     graph_5PL4PL <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg=col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_4PL, color="4PL Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -498,6 +521,7 @@ plot_fit <- function(data,
       ggplot2::theme(legend.position = legend.position, legend.title = ggplot2::element_blank())+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::labs(color = "Legend")+
       ggplot2::scale_color_manual(values = models)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
@@ -516,7 +540,8 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PL4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-      }
+    print(graph_5PL4PL)  
+    }
   
   graph_Gompertz4PL <- function(data, var_dep, var_indep, treatment_name){
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
@@ -531,6 +556,7 @@ plot_fit <- function(data,
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
     predicted_4PL <- stats::predict(model_4PL)
     models <- c("Gompertz Model" = col2, "4PL Model" = col3)
+    data$overall <- treatment_name
     graph_Gompertz4PL <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg=col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_4PL, color="4PL Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -539,6 +565,7 @@ plot_fit <- function(data,
       ggplot2::theme(legend.position = legend.position, legend.title = ggplot2::element_blank())+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::labs(color = "Legend")+
       ggplot2::scale_color_manual(values = models)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
@@ -557,7 +584,8 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_Gompertz4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-      }
+    print(graph_Gompertz4PL)  
+    }
   
   graph_5PLGompertz4PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
@@ -577,6 +605,7 @@ plot_fit <- function(data,
     r2_4PL <-stats::cor(var_dep,stats::predict(model_4PL)) * stats::cor(var_dep,stats::predict(model_4PL))
     predicted_4PL <- stats::predict(model_4PL)
     models <- c("5PL Model" = col1, "Gompertz Model" = col2, "4PL Model" = col3)
+    data$overall <- treatment_name
     graph_5PLGompertz4PL <- ggplot2::ggplot(data, ggplot2::aes_string(var_indep, var_dep))+
       ggplot2::geom_point(col= col, size=2.5, pch=21, bg=col)+
       ggplot2::stat_smooth(ggplot2::aes(var_indep, predicted_5PL, color="5PL Model"), se=FALSE, linetype = "longdash", show.legend = TRUE)+
@@ -586,6 +615,7 @@ plot_fit <- function(data,
       ggplot2::theme(legend.position = legend.position, legend.title = ggplot2::element_blank())+
       ggplot2::xlab(axisX) + 
       ggplot2::ylab(axisY)+
+      ggplot2::facet_wrap(~overall)+
       ggplot2::labs(color = "Legend")+
       ggplot2::scale_color_manual(values = models)+
       ggplot2::scale_x_continuous(breaks = breaksX, limits = limitsX) +
@@ -608,42 +638,94 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PLGompertz4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    
+    print(graph_5PLGompertz4PL)
   }
   
   if(models == 1){
-    for (i in 1:(ncol(data)/2)) {graph_5PL(data = data, 
+    p <- list()
+    for (i in 1:(ncol(data)/2)) { p[[i]] <- graph_5PL(data = data, 
                                            var_dep = data[,i + (ncol(data)/2)],
                                            var_indep = data[,i],
-                                           treatment_name = colnames(data)[i + (ncol(data)/2)])}
+                                           treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")
+    }
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                            bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)
   }
-  else if (models == 2){for (i in 1:(ncol(data)/2)) {graph_gompertz(data = data, 
+  else if (models == 2){
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_gompertz(data = data, 
                                                                    var_dep = data[,i + (ncol(data)/2)],
                                                                    var_indep = data[,i],
-                                                                   treatment_name = colnames(data)[i + (ncol(data)/2)])}
-    
+                                                                   treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                                    bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)  
   }
-  else if (models == 3){for (i in 1:(ncol(data)/2)) {graph_4PL(data = data, 
+  else if (models == 3){
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_4PL(data = data, 
                                                               var_dep = data[,i + (ncol(data)/2)],
                                                               var_indep = data[,i],
-                                                              treatment_name = colnames(data)[i + (ncol(data)/2)])}}
-  else if (models == 4){for (i in 1:(ncol(data)/2)) {graph_5PLgompertz(data = data, 
+                                                              treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                                    bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)
+    }
+  else if (models == 4){
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_5PLgompertz(data = data, 
                                                                       var_dep = data[,i + (ncol(data)/2)],
                                                                       var_indep = data[,i],
-                                                                      treatment_name = colnames(data)[i + (ncol(data)/2)])}}
+                                                                      treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                                    bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)
+    }
   else if (models == 5){
-    for (i in 1:(ncol(data)/2)) {graph_5PL4PL(data = data, 
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_5PL4PL(data = data, 
                                               var_dep = data[,i + (ncol(data)/2)],
                                               var_indep = data[,i],
-                                              treatment_name = colnames(data)[i + (ncol(data)/2)])}}
+                                              treatment_name = colnames(data)[i + (ncol(data)/2)
+                                              ])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                                    bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)
+    }
   else if (models == 6){
-    for (i in 1:(ncol(data)/2)) {graph_Gompertz4PL(data = data, 
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_Gompertz4PL(data = data, 
                                                    var_dep = data[,i + (ncol(data)/2)],
                                                    var_indep = data[,i],
-                                                   treatment_name = colnames(data)[i + (ncol(data)/2)])}}
+                                                   treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    }
   else if (models == 7){
-    for (i in 1:(ncol(data)/2)) {graph_5PLGompertz4PL(data = data, 
+    p <- list()
+    for (i in 1:(ncol(data)/2)) {p[[i]] <- graph_5PLGompertz4PL(data = data, 
                                                       var_dep = data[,i + (ncol(data)/2)],
                                                       var_indep = data[,i],
-                                                      treatment_name = colnames(data)[i + (ncol(data)/2)])}}
+                                                      treatment_name = colnames(data)[i + (ncol(data)/2)])
+    p[[i]] <-  p[[i]] + ggplot2::ylab(NULL) +ggplot2::xlab(NULL) + ggplot2::theme(legend.position = "none")}
+    plot <- do.call(gridExtra::grid.arrange,c(p, labels = NULL, ncol = 4))
+    plot <- ggpubr::annotate_figure(plot, left = grid::textGrob(axisX, rot = 90, vjust = 1, gp = grid::gpar(cex = 1.3)),
+                                    bottom = grid::textGrob(axisY, gp = grid::gpar(cex = 1.3)))
+    if(save.PDF == TRUE){ggplot2::ggsave(plot, filename = "Multiplot.pdf", width = width.PDF2, height = height.PDF2, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
+    print(plot)}
   else {print("Models not found!!")}}

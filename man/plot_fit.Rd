@@ -21,10 +21,10 @@ plot_fit(
   axisY = expression(paste("CO"["2"] * " Production (g L"^{
      "-1"
  } * ")")),
-  breaksX = seq(0, 196, 24),
-  limitsX = c(0, 196),
-  breaksY = seq(0, 100, 10),
-  limitsY = c(0, 100),
+  breaksX = waiver(),
+  limitsX = NULL,
+  breaksY = waiver(),
+  limitsY = NULL,
   font = "serif",
   font.size = 14,
   legend.position = "top",
@@ -33,7 +33,9 @@ plot_fit(
   dir.save,
   dir.name = "Graphics",
   width.PDF = 15,
-  height.PDF = 12
+  height.PDF = 12,
+  width.PDF2 = 25,
+  height.PDF2 = 18
 )
 }
 \arguments{
@@ -130,7 +132,11 @@ for saving PDF graphics. Character vector.}
 
 \item{width.PDF}{Width, in cm, of the graphic to be saved in a PDF file.}
 
-\item{height.PDF}{Height, in cm, of the graphic to be saved in a PDF file.}
+\item{height.PDF}{Height, in cm, of the graphic to be saved in a PDF}
+
+\item{width.PDF2}{Width, in cm, of the multiplot graphic to be saved in a PDF file.}
+
+\item{height.PDF2}{Height, in cm, of the multiplot graphic to be saved in a PDF}
 }
 \value{
 Elegant graphics plotted according 
