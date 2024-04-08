@@ -378,8 +378,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))   
     ggplot2::ggsave(graph_5PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_5PL)
-  }
+      }
   
   graph_gompertz <- function(data, var_dep, var_indep, treatment_name){
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
@@ -408,8 +407,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_gompertz, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_gompertz)
-  }
+    }
   
   graph_4PL <- function(data, var_dep, var_indep, treatment_name){
     model_4PL <- minpack.lm::nlsLM(var_dep ~ d+(a-d)/(1+(var_indep/c)^b), 
@@ -437,8 +435,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_4PL)
-  }
+      }
   
   graph_5PLgompertz <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
@@ -479,8 +476,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PLgompertz, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_5PLgompertz)
-  }
+      }
   
   graph_5PL4PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
@@ -520,8 +516,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PL4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_5PL4PL)
-  }
+      }
   
   graph_Gompertz4PL <- function(data, var_dep, var_indep, treatment_name){
     model_gompertz <- minpack.lm::nlsLM(var_dep ~ a*exp(-exp(-c*var_indep+b)),
@@ -562,8 +557,7 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_Gompertz4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_Gompertz4PL)
-  }
+      }
   
   graph_5PLGompertz4PL <- function(data, var_dep, var_indep, treatment_name){
     model_5PL <- minpack.lm::nlsLM(var_dep ~ d + ((a-d)/((1+((var_indep/c)^b))^g)), 
@@ -614,7 +608,6 @@ plot_fit <- function(data,
     if(save.PDF == TRUE){
     dir.create(paste(dir.save,dir.name, sep = ''))
     ggplot2::ggsave(graph_5PLGompertz4PL, filename = paste("Treatment", treatment_name, ".pdf"), width = width.PDF, height = height.PDF, units = 'cm', device = grDevices::cairo_pdf, path = paste(dir.save,dir.name, sep = ''))}
-    print(graph_5PLGompertz4PL)
     
   }
   
